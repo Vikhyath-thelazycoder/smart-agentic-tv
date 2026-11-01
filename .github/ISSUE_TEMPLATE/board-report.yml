@@ -1,0 +1,38 @@
+name: Board report
+description: Tell us how it went on your TV board, even if it didn't work
+labels: [board-report]
+body:
+  - type: input
+    id: board
+    attributes:
+      label: Board and TV
+      description: Board name, chip and TV, if you know them.
+      placeholder: U.11, Hi3751V350, Samsung panel
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: Board facts
+      description: Output of the commands in docs/ADD-YOUR-BOARD.md, step 1. Remove anything private.
+      render: text
+    validations:
+      required: true
+  - type: checkboxes
+    id: works
+    attributes:
+      label: What worked?
+      options:
+        - label: Installed and opened
+        - label: Stays as the home screen after a restart
+        - label: Phone paired
+        - label: Remote keys
+        - label: Touchpad mouse
+        - label: Source button
+        - label: Jarvis answers
+        - label: Debugging port closes (status says closed)
+  - type: textarea
+    id: notes
+    attributes:
+      label: What went wrong, and anything else
+      description: Never paste API keys.

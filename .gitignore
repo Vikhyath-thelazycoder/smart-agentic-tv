@@ -1,0 +1,17 @@
+# Your settings, keys and signing keys stay on your machine
+config.properties
+*.keystore
+*.jks
+*.idsig
+*pairing*.txt
+*keys.properties
+
+# Build output
+out/
+*.apk
+__pycache__/
+apps/tv/app/assets/phone/
+
+# Your machine
+.DS_Store
+tools/.i18n-cache.json

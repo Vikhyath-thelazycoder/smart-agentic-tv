@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A TV with a voice inside: the screen, its stand, and sound bars. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#FFF4F7FB" android:pathData="M32,31h44a6,6 0 0 1 6,6v28a6,6 0 0 1 -6,6h-44a6,6 0 0 1 -6,-6v-28a6,6 0 0 1 6,-6z" />
+    <path android:fillColor="#FFF4F7FB" android:pathData="M42,75h24a2.5,2.5 0 0 1 0,5h-24a2.5,2.5 0 0 1 0,-5z" />
+    <path android:fillColor="#FF2F6BFF" android:pathData="M37.5,47a2.5,2.5 0 0 1 5,0v8a2.5,2.5 0 0 1 -5,0z" />
+    <path android:fillColor="#FF2F6BFF" android:pathData="M45.5,42a2.5,2.5 0 0 1 5,0v18a2.5,2.5 0 0 1 -5,0z" />
+    <path android:fillColor="#FF2F6BFF" android:pathData="M53.5,38a2.5,2.5 0 0 1 5,0v26a2.5,2.5 0 0 1 -5,0z" />
+    <path android:fillColor="#FF2F6BFF" android:pathData="M61.5,43a2.5,2.5 0 0 1 5,0v16a2.5,2.5 0 0 1 -5,0z" />
+    <path android:fillColor="#FF2F6BFF" android:pathData="M69.5,48a2.5,2.5 0 0 1 5,0v6a2.5,2.5 0 0 1 -5,0z" />
+</vector>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Smart Agentic TV</string>
+    <string name="keyboard_watch">Notices when an app shows a keyboard, so your phone can type. Counts letters on screen and keeps nothing.</string>
+    <string name="remote_key_service">Shows the glass volume display and keeps the old home screen away. Reads only the volume keys.</string>
+</resources>

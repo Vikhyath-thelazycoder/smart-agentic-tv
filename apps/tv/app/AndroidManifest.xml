@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.smartagentictv.tv"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- Between this app's own processes: nothing else on the TV can change the volume through it. -->
+    <permission android:name="io.github.smartagentictv.tv.permission.INTERNAL" android:protectionLevel="signature" />
+    <uses-permission android:name="io.github.smartagentictv.tv.permission.INTERNAL" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- After the TV boots (and after a TV update), checks that Smart Agentic TV mode is still as you left it. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- The phone link keeps running while other apps are on screen. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Android 11+: without this list the app can't "see" the other apps (getLeanbackLaunchIntentForPackage
+         returns null). The shelf and streaming apps, the live TV apps and, through the <intent>, every TV app
+         (for "All Apps"). -->
+    <queries>
+        <package android:name="com.netflix.ninja" />
+        <package android:name="com.google.android.youtube.tv" />
+        <package android:name="com.amazon.amazonvideo.livingroom" />
+        <package android:name="com.disney.disneyplus" />
+        <package android:name="com.wbd.stream" />
+        <package android:name="com.hbo.hbonow" />
+        <package android:name="com.apple.atve.androidtv.appletv" />
+        <package android:name="com.apple.atve.sony.appletv" />
+        <package android:name="com.hulu.livingroomplus" />
+        <package android:name="com.cbs.ott" />
+        <package android:name="com.peacocktv.peacockandroid" />
+        <package android:name="com.globo.globotv" />
+        <package android:name="com.spotify.tv.android" />
+        <package android:name="com.tcl.tv" />
+        <package android:name="com.google.android.tv" />
+        <package android:name="com.mediatek.wwtv.tvcenter" />
+        <package android:name="com.sony.dtv.tvx" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="content" android:host="android.media.tv" />
+        </intent>
+    </queries>
+
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <application
+        android:name=".App"
+        android:label="Smart Agentic TV"
+        android:icon="@drawable/icon"
+        android:banner="@drawable/banner"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false">
+
+        <!-- The app's icon opens the settings (switch between Smart Agentic TV and the original home screen). -->
+        <activity
+            android:name=".SettingsActivity"
+            android:process=":home"
+            android:exported="true"
+            android:label="Smart Agentic TV"
+            android:launchMode="singleTask"
+            android:taskAffinity="io.github.smartagentictv.tv.settings"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection"
+            android:theme="@style/SmartAgenticTV.Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- The home screen. Its own process (:home): if it ever crashes, the safety net in the main process still
+             works. It only becomes the TV's home screen in Smart Agentic TV mode (cmd package set-home-activity). -->
+        <activity
+            android:name=".HomeActivity"
+            android:process=":home"
+            android:exported="true"
+            android:label="Smart Agentic TV"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:stateNotNeeded="true"
+            android:clearTaskOnLaunch="true"
+            android:resumeWhilePausing="true"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection"
+            android:theme="@style/SmartAgenticTV.Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".IdleActivity" android:process=":home" android:exported="false" android:excludeFromRecents="true"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home" />
+        <activity android:name=".GlassSettingsActivity" android:process=":home" android:exported="false"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection" />
+        <activity android:name=".WifiActivity" android:process=":home" android:exported="false"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection" />
+        <activity android:name=".MediaActivity" android:process=":home" android:exported="false"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection" />
+        <activity android:name=".CastActivity" android:process=":home" android:exported="false"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection" />
+
+        <!-- Pairing and the phone link. Their own process, so nothing here can slow the home screen. -->
+        <activity android:name=".PairActivity" android:process=":link" android:exported="false"
+            android:screenOrientation="landscape" android:theme="@style/SmartAgenticTV.Home"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density|fontScale|locale|layoutDirection" />
+        <service android:name=".LinkService" android:process=":link" android:exported="false" />
+        <service
+            android:name=".KeyboardWatch"
+            android:process=":link"
+            android:exported="true"
+            android:label="Smart Agentic TV keyboard watch"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice" android:resource="@xml/keyboard_watch" />
+        </service>
+
+        <service
+            android:name=".Screensaver"
+            android:process=":home"
+            android:enabled="@bool/dream_in_home"
+            android:exported="true"
+            android:label="Smart Agentic TV"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!-- The same screensaver on Android 11, in the main process (see ScreensaverAlone). -->
+        <service
+            android:name=".ScreensaverAlone"
+            android:enabled="@bool/dream_alone"
+            android:exported="true"
+            android:label="Smart Agentic TV"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <!-- The switches, as background jobs in the main process. -->
+        <service
+            android:name=".ModeJob"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- The remote's app buttons from inside any app (Settings > Remote Buttons). Its own process: the system waits for it on
+             every key, so the home screen must never be able to slow it down. -->
+        <service
+            android:name=".RemoteKeyService"
+            android:process=":keys"
+            android:exported="true"
+            android:label="Smart Agentic TV"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/remote_key_service" />
+        </service>
+
+        <receiver
+            android:name=".HomeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
