@@ -16,9 +16,13 @@ Tested from a computer and an emulator phone connected to that TV: search, timer
 
 ## Other boards
 
-The app should install on Android 8 or newer. Without a profile, these features stay off: sending the old launcher back, the touchpad mouse, the Source button, and the board's own settings and Miracast shortcuts.
+The app should install on Android 8 or newer, but see the known issue below. Without a profile, these features stay off: sending the old launcher back, the touchpad mouse, the Source button, and the board's own settings and Miracast shortcuts.
 
 The original Free My TV also supports Google TV and Android TV sets through its home-screen switch. That code is still here, but this project hasn't tested it.
+
+## Known issue: newer Android
+
+The key helper is tested on Android 9. **On an Android 14 emulator it stops at startup**, because Android changed a call it uses. Remote keys, mouse and typing then don't work, and the phone stays on "keys starting". The other features don't need the helper. Android versions in between are untested, so please report what you find.
 
 ## What can differ
 

@@ -5,7 +5,7 @@
 | `adb connect` fails | Check the IP and that USB debugging is on. If the debugging port was closed from the app, open it again from the phone menu |
 | "device offline" | `adb kill-server`, then connect again |
 | macOS says `No route to host` though the TV answers | Allow your terminal under Privacy & Security > Local Network |
-| Phone says "keys starting" for long | Wait a minute. The helper needs ADB running on the TV, so leave USB debugging on |
+| Phone says "keys starting" for long | Wait a minute. The helper needs ADB running on the TV, so leave USB debugging on. On newer Android it may not start at all: see the [known issue](SUPPORTED-BOARDS.md#known-issue-newer-android) |
 | Phone can't find the TV | Same Wi-Fi? Some routers block devices from seeing each other (client or AP isolation) |
 | Old launcher comes back | Your board needs a [profile](ADD-YOUR-BOARD.md) with `old_home` |
 | Mouse or Source does nothing | Your board needs those values in its [profile](ADD-YOUR-BOARD.md) |

@@ -12,7 +12,7 @@ A new home screen, a phone remote, and a voice assistant called Jarvis. It's for
 
 </div>
 
-> **Early project: tested on one board so far.** That board is a U.11 universal board (HiSilicon Hi3751V350, Android 9). Other Android TV boards may need a small [board profile](docs/ADD-YOUR-BOARD.md). If you try yours, please [report how it went](../../issues/new?template=board-report.yml).
+> **Early project: tested on one board so far.** That board is a U.11 universal board (HiSilicon Hi3751V350, Android 9). Phone remote keys [don't yet work on Android 14](docs/SUPPORTED-BOARDS.md#known-issue-newer-android). Other Android TV boards may need a small [board profile](docs/ADD-YOUR-BOARD.md). If you try yours, please [report how it went](../../issues/new?template=board-report.yml).
 
 <p align="center">
   <img src="docs/assets/remote.png" width="240" alt="The phone remote">
